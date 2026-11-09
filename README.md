@@ -1,3 +1,11 @@
-# C.H.I.M.E.R.A.
-CAN Hardware Interface for Mechanical Evaluation and Real-time Analysis
-A repository for code related to Formula SAE
+# CHIMERA
+CAN Hardare Interface for Mechanical Evaluation and Real-time Analysis
+
+
+
+## To build and run the project
+mkdir build
+cd build
+cmake ..
+make
+
