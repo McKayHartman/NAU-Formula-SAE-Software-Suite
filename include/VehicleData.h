@@ -1,9 +1,7 @@
 #ifndef VEHICLEDATA_H
 #define VEHICLEDATA_H
 
-#include <vector>
-#include <string>
-#include <unistd.h>
+#include <cstdint>
 
 struct VehicleData {
     uint16_t rpm;
