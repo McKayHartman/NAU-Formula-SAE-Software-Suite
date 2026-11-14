@@ -88,4 +88,5 @@ Use only for header file declarations and simple macros
 Compile with GCC, all warnings enabled. Code MUST compile with no warnings.
 
 
+make
 
