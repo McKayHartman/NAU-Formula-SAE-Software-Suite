@@ -5,6 +5,12 @@
 
 #include "VehicleData.h"
 
+enum class [[nodiscard]] Status {
+    SUCCESS,
+    FAILURE,
+    BAD_PARAMS,
+};
+
 class VehicleDataRingBuffer {
 private:
     std::vector<VehicleData> buffer;
@@ -12,17 +18,22 @@ private:
     int back = 0;
     const int capacity;
 
+    void increment_front();
+    void increment_back();
+
 public:
     VehicleDataRingBuffer(const int capacity);
-    bool is_empty();
-    bool is_full();
+    bool is_empty() const;
+    bool is_full() const;
 
-    const VehicleData pop_front();
-    void push_back(VehicleData v);
+    VehicleData pop_front();
+    Status push_back(VehicleData v);
 
-    const int get_front();
-    const int get_back();
-    const int get_size();
+    int get_front() const;
+    int get_back() const;
+    int get_size() const;
+
+
 };
 
 

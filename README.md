@@ -41,10 +41,10 @@ void foo_bar() {
 ```
 
 ### Error Handling
-Use error codes to return errors
+Use enum class error codes to return errors
 Example:
 ```
-enum class Status {
+enum class [[nodiscard]] Status {
   Success,
   SensorFail
   BadParam,
@@ -60,8 +60,13 @@ Status always_fails() {
 
 Avoid all exceptions until processing can NOT continue without user input.
 
+### Classes
+Don't do any work in the constructor. Only initialize variables.
 
-
+Refer to memebrs using 'this->'
+```
+this->member_variable = foo;
+```
 ### Memory Managment
 Do not use dynamic memory allocation after initialization.
 Avoid using the heap if at all possible.
