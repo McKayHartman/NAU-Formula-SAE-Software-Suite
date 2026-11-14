@@ -8,8 +8,8 @@
 class VehicleDataRingBuffer {
 private:
     std::vector<VehicleData> buffer;
-    int front;
-    int back;
+    int front = 0;
+    int back = 0;
     const int capacity;
 
 public:
