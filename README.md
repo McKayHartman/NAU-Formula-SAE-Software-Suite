@@ -63,7 +63,7 @@ Avoid all exceptions until processing can NOT continue without user input.
 ### Classes
 Don't do any work in the constructor. Only initialize variables.
 
-Refer to memebrs using 'this->'
+Refer to members using 'this->'
 ```
 this->member_variable = foo;
 ```
@@ -88,5 +88,4 @@ Use only for header file declarations and simple macros
 Compile with GCC, all warnings enabled. Code MUST compile with no warnings.
 
 
-make
 
