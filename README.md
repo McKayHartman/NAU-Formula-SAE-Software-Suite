@@ -15,6 +15,12 @@ cmake ..
 
 make
 ```
+## Windows(?):
+```
+mkdir build
+
+cmake --build build
+```
 
 ## Style guide
 **Inspired by NASA's Power of 10 Style Guide**

@@ -1,11 +1,11 @@
-#include "VehicleDataRingBuffer.h"
+#include "../include/VehicleDataRingBuffer.h"
 
-VehicleDataRingBuffer::VehicleDataRingBuffer(const int capacity) : capacity(capacity) {
-    this->buffer.reserve(capacity);
-};
+VehicleDataRingBuffer::VehicleDataRingBuffer(const int capacity) 
+    : buffer(capacity > 0 ? capacity : 0), capacity(capacity) {}
+
 
 bool VehicleDataRingBuffer::is_empty() const {
-    return this->get_size(); // truthy/falsey
+    return this->get_size() == 0; // truthy/falsey
 }
 
 bool VehicleDataRingBuffer::is_full() const {

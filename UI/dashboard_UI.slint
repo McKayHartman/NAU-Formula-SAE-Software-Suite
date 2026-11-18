@@ -1,0 +1,24 @@
+export component dashboard_Basic inherits Window {
+    width: 400px;
+    height: 400px;
+
+    // Declare an alias that exposes the label's text property to C++
+    in-out property <int> RPM: 0;
+
+    Rectangle {
+        // width: parent.width;
+        // height: parent.height;
+        background: white;
+        // in-out property <int> RPM;
+        RPM_display := Text {
+        y: parent.width / 2;
+        // x: parent.width/2;
+        horizontal-alignment: center;
+        font-size: parent.width / 5;
+        font-weight: FontWeight.bold;
+        text: root.RPM;
+        color: black;
+        }
+    }
+}
+
