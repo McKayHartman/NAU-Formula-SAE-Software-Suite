@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
+
+#include <thread>
+#include <chrono>
 
 #include <net/if.h>
 #include <sys/ioctl.h>
@@ -14,7 +18,8 @@
 enum class [[nodiscard]] Status {
     SUCCESS,
     ERROR,
-    SOCK_ERROR
+    SOCK_ERROR,
+    SEND_ERROR
 };
 
 class SocketVCANSender {

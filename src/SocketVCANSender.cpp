@@ -39,10 +39,19 @@ static struct can_frame create_rpm_frame(uint16 rpm_val) {
     return f;
 }
 
-Status::SocketVCANSender::send_can_frames(int hertz) {
-    int ms_delay = calc_ms_delay(hertz);
-}
-
 static int calc_ms_delay(int Hz) {
     return 1000/Hz;
 }
+
+
+Status::SocketVCANSender::send_can_frames(int hertz) {
+    int ms_delay = calc_ms_delay(hertz);
+    uint16 rpm = 0;
+
+    while(1) {
+        struct can_frame frame = create_can_frame((rpm++ % 9000));
+        nbytes = write(this->socket_fd, &frame, sizeof(struct can_frame));
+        std::this_thread::sleep_for(std::chrono::milliseconds(ms_delay));
+    }
+}
+
