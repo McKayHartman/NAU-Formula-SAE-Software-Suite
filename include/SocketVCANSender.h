@@ -31,4 +31,4 @@ public:
     Status send_can_frames(int hertz);
 private:
     int socket_fd = -1;
-}
+};

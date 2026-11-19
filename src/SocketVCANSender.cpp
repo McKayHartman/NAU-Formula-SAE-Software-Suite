@@ -9,7 +9,7 @@ SocketVCANSender::~SocketVCANSender(){
 Status SocketVCANSender::create_socket() {
     struct sockaddr_can addr;
     struct ifreq ifr;
-    const char* ifname = "vcan0"
+    const char* ifname = "vcan0";
 
     if ((this->socket_fd = socket(PF_CAN, SOCK_RAW, CAN_RAW)) == -1) {
 		perror("Error while opening socket");
@@ -17,7 +17,7 @@ Status SocketVCANSender::create_socket() {
 	}
 
     strcpy(ifr.ifr_name, ifname);
-	ioctl(s, SIOCGIFINDEX, &ifr);
+	ioctl(this->socket_fd, SIOCGIFINDEX, &ifr);
 
     addr.can_family  = AF_CAN;
 	addr.can_ifindex = ifr.ifr_ifindex;
@@ -28,7 +28,7 @@ Status SocketVCANSender::create_socket() {
 	}
 }
 
-static struct can_frame create_rpm_frame(uint16 rpm_val) {
+static struct can_frame create_rpm_frame(uint16_t rpm_val) {
     struct can_frame f;
 
     f.can_id = 0x520;
@@ -44,13 +44,13 @@ static int calc_ms_delay(int Hz) {
 }
 
 
-Status::SocketVCANSender::send_can_frames(int hertz) {
+Status SocketVCANSender::send_can_frames(int hertz) {
     int ms_delay = calc_ms_delay(hertz);
-    uint16 rpm = 0;
+    uint16_t rpm = 0;
 
     while(1) {
-        struct can_frame frame = create_can_frame((rpm++ % 9000));
-        nbytes = write(this->socket_fd, &frame, sizeof(struct can_frame));
+        struct can_frame frame = create_rpm_frame((rpm++ % 9000));
+        int nbytes = write(this->socket_fd, &frame, sizeof(struct can_frame));
         std::this_thread::sleep_for(std::chrono::milliseconds(ms_delay));
     }
 }

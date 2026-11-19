@@ -19,11 +19,14 @@ FetchContent_MakeAvailable(Slint)
 
 
 
-add_executable(CHIMERA src/main.cpp)
+add_executable(CHIMERA 
+    src/main.cpp
+    src/SocketVCANSender.cpp)
 add_executable(CHIMERA_DASH 
   src/dashboard_Controller.cpp
   src/VehicleDataRingBuffer.cpp
 )
+
 
 slint_target_sources(CHIMERA_DASH UI/dashboard_UI.slint)
 target_link_libraries(CHIMERA_DASH PRIVATE Slint::Slint)
