@@ -2,6 +2,7 @@
 #define VEHICLEDATARINGBUFFER_H
 
 #include <vector>
+#include <mutex>
 
 #include "VehicleData.h"
 
@@ -20,6 +21,8 @@ private:
 
     void increment_front();
     void increment_back();
+
+    std::mutex mutex;
 
 public:
     VehicleDataRingBuffer(const int capacity);

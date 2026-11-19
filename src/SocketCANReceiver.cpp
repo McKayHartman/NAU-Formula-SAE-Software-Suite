@@ -81,12 +81,9 @@ int SocketCANReceiver::get_fd() {
 RecvStatus SocketCANReceiver::poll_data() {
     VehicleData current{};
     uint8_t byes_received = 0;
-    std::cout << "Entering Loop" << std::endl;
     while(1) {
-        std::cout << "-" << std::endl;
         can_frame frame{};
         ssize_t n = read(this->fd, &frame, sizeof(frame));
-        std::cout << n << std::endl;
         if (n < 0) {
             if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR) {
                 // nothing for 100 ms: throw away any half-finished group
@@ -125,16 +122,12 @@ RecvStatus SocketCANReceiver::poll_data() {
         }
 
         if (byes_received == GOT_ALL) {
-            std::cout << "*" << std::endl;
             auto result = this->buff.push_back(current); // This line is commented out because the queue is not defined in this context
             if(static_cast<int>(result) > 0) {
                 std::cout << "failed push_back()" << std::endl;
             }
             else {
                 int size = buff.get_size();
-                std::cout << "pushed success. queue size = " << size << std::endl; 
-                VehicleData v = buff.pop_front();
-                std::cout << "RPM = " << v.rpm << std::endl;
             }
             byes_received = 0;
             current = VehicleData{};

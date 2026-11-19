@@ -13,6 +13,7 @@ bool VehicleDataRingBuffer::is_full() const {
 }
 
 VehicleData VehicleDataRingBuffer::pop_front() {
+    std::lock_guard<std::mutex> lock(mutex);
     if(this->is_empty()) {
         return VehicleData{};
     }
@@ -22,6 +23,7 @@ VehicleData VehicleDataRingBuffer::pop_front() {
 }
 
 BufStatus VehicleDataRingBuffer::push_back(VehicleData v) {
+    std::lock_guard<std::mutex> lock(mutex);
     // Write-on-full increments back and front
     if(this->is_full()) {
         this->increment_front();

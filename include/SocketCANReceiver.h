@@ -30,7 +30,7 @@ public:
 private:
     int fd = -1;
     std::string interface_name;
-    VehicleDataRingBuffer buff;
+    VehicleDataRingBuffer& buff;
     
     
 };
