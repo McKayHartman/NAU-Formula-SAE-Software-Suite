@@ -22,7 +22,8 @@ FetchContent_MakeAvailable(Slint)
 add_executable(CHIMERA 
     src/main.cpp
     src/SocketVCANSender.cpp
-    src/SocketCANReceiver.cpp)
+    src/SocketCANReceiver.cpp
+    src/VehicleDataRingBuffer.cpp)
 add_executable(CHIMERA_DASH 
   src/dashboard_Controller.cpp
   src/VehicleDataRingBuffer.cpp

@@ -5,7 +5,7 @@
 
 #include "VehicleData.h"
 
-enum class [[nodiscard]] Status {
+enum class [[nodiscard]] BufStatus {
     SUCCESS,
     FAILURE,
     BAD_PARAMS,
@@ -27,7 +27,7 @@ public:
     bool is_full() const;
 
     VehicleData pop_front();
-    Status push_back(VehicleData v);
+    BufStatus push_back(VehicleData v);
 
     int get_front() const;
     int get_back() const;

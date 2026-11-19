@@ -11,7 +11,7 @@ int main(int argc, char **argv)
     for(int i = 0; i<10000; i+= 100) {
         VehicleData sim;
         sim.rpm = i;
-        Status s = buffer.push_back(sim);
+        BufStatus s = buffer.push_back(sim);
 
 
     }
