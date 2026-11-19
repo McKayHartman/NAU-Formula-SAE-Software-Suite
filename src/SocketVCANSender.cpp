@@ -6,7 +6,7 @@ SocketVCANSender::~SocketVCANSender(){
     close(this->socket_fd);
 }
 
-Status SocketVCANSender::create_socket() {
+SendStatus SocketVCANSender::create_socket() {
     struct sockaddr_can addr;
     struct ifreq ifr;
     const char* ifname = "vcan0";
@@ -44,7 +44,7 @@ static int calc_ms_delay(int Hz) {
 }
 
 
-Status SocketVCANSender::send_can_frames(int hertz) {
+SendStatus SocketVCANSender::send_can_frames(int hertz) {
     int ms_delay = calc_ms_delay(hertz);
     uint16_t rpm = 0;
 
