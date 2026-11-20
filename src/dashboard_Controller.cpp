@@ -2,10 +2,12 @@
 #include "../include/dashboard_Controller.h"
 #include <slint.h>
 
-DashboardUI::DashboardUI(VehicleDataRingBuffer &buffer) : buffer_(buffer) {};
+DashboardUI::DashboardUI(VehicleDataRingBuffer &buffer) : buffer_(buffer) {}
 
 void DashboardUI::run() {
     auto dashboard = dashboard_Basic::create();
+    dashboard->set_screen_res_w(Constants::screen_res_w);
+    dashboard->set_screen_res_h(Constants::screen_res_h);
     slint::Timer update_timer(std::chrono::seconds(1/Constants::hertz), [&]() {
         if (!(buffer_.is_empty())) {
             //pop rpm from stack
