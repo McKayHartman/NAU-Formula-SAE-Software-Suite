@@ -9,31 +9,31 @@ bool VehicleDataRingBuffer::is_empty() const {
 }
 
 bool VehicleDataRingBuffer::is_full() const {
-    if(this->get_size() == this->capacity) {
-        return true;
-    }
-    return false;
+    return this->get_size() == this->capacity - 1;
 }
 
 VehicleData VehicleDataRingBuffer::pop_front() {
+    std::lock_guard<std::mutex> lock(mutex);
     if(this->is_empty()) {
         return VehicleData{};
     }
-    VehicleData result = this->buffer[this->front];
     this->increment_front();
+    VehicleData result = this->buffer[this->front];
     return result;
 }
 
-Status VehicleDataRingBuffer::push_back(VehicleData v) {
+BufStatus VehicleDataRingBuffer::push_back(VehicleData v) {
+    std::lock_guard<std::mutex> lock(mutex);
     // Write-on-full increments back and front
     if(this->is_full()) {
         this->increment_front();
         this->increment_back();
         this->buffer[back] = v;
-        return Status::SUCCESS;
+        return BufStatus::SUCCESS;
     }
     this->increment_back();
     this->buffer[back] = v;
+    return BufStatus::SUCCESS;
 }
 
 int VehicleDataRingBuffer::get_back() const {
@@ -45,13 +45,7 @@ int VehicleDataRingBuffer::get_front() const {
 }
 
 int VehicleDataRingBuffer::get_size() const {
-    if(this->front == this->back) {
-        return 0;
-    }
-    else if(this->front > this->back) {
-        return this->back - this->front + 1 + this->capacity;
-    }
-    return this->back - this->front + 1;
+    return (this->back - this->front + this->capacity) % this->capacity;
 }
 
 void VehicleDataRingBuffer::increment_front() {

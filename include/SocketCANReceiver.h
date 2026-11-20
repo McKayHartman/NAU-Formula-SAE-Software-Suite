@@ -3,17 +3,40 @@
 
 #include <atomic>
 #include <string>
-
+#include <iostream>
 #include "VehicleDataRingBuffer.h"
 
-// SocketCAN is linux-only these are only implemented with linux 
 
-// opens a socketcan connection using the given interface
-int open_can_socket(const std::string& interface_name);
 
-// reads can frames and pushes complete vehicle data samples into the queue
-void poll_data(int socket_fd,
-               VehicleDataRingBuffer& queue,
-               std::atomic<bool>& running);
+
+enum class [[nodiscard]] RecvStatus {
+    SUCCESS,
+    ERROR
+};
+
+
+
+
+class SocketCANReceiver {
+public:
+    SocketCANReceiver(const std::string& interface_name, VehicleDataRingBuffer& buff);
+    ~SocketCANReceiver();
+
+    int get_fd();
+    int open_can_socket();
+
+    RecvStatus poll_data();
+    
+private:
+    int fd = -1;
+    std::string interface_name;
+    VehicleDataRingBuffer& buff;
+    
+    
+};
+
+
+
+static uint16_t u16(const uint8_t* d, int offset);
 
 #endif

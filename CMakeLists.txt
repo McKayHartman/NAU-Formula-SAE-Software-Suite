@@ -21,19 +21,16 @@ FetchContent_MakeAvailable(Slint)
 
 add_executable(CHIMERA 
     src/main.cpp
-    src/SocketVCANSender.cpp)
-add_executable(CHIMERA_DASH 
-  src/dashboard_Controller.cpp
-  src/VehicleDataRingBuffer.cpp
-)
+    src/SocketVCANSender.cpp
+    src/SocketCANReceiver.cpp
+    src/VehicleDataRingBuffer.cpp
+    src/DashboardController.cpp)
 
 
-slint_target_sources(CHIMERA_DASH UI/dashboard_UI.slint)
-target_link_libraries(CHIMERA_DASH PRIVATE Slint::Slint)
 
-if (WIN32)
-    add_custom_command(TARGET CHIMERA_DASH POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:CHIMERA_DASH> $<TARGET_FILE_DIR:CHIMERA_DASH> COMMAND_EXPAND_LISTS)
-endif()
+slint_target_sources(CHIMERA UI/dashboard_UI.slint)
+target_link_libraries(CHIMERA PRIVATE Slint::Slint)
+
 
 #option(BUILD_TESTING "Building unit tests" on)
 

@@ -15,7 +15,7 @@
 #include <linux/can.h>
 #include <linux/can/raw.h>
 
-enum class [[nodiscard]] Status {
+enum class [[nodiscard]] SendStatus {
     SUCCESS,
     ERROR,
     SOCK_ERROR,
@@ -27,8 +27,8 @@ public:
     SocketVCANSender();
     ~SocketVCANSender();
 
-    Status create_socket();
-    Status send_can_frames(int hertz);
+    SendStatus create_socket();
+    SendStatus send_can_frames(int hertz);
 private:
     int socket_fd = -1;
 };

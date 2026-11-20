@@ -2,10 +2,11 @@
 #define VEHICLEDATARINGBUFFER_H
 
 #include <vector>
+#include <mutex>
 
 #include "VehicleData.h"
 
-enum class [[nodiscard]] Status {
+enum class [[nodiscard]] BufStatus {
     SUCCESS,
     FAILURE,
     BAD_PARAMS,
@@ -21,13 +22,15 @@ private:
     void increment_front();
     void increment_back();
 
+    std::mutex mutex;
+
 public:
     VehicleDataRingBuffer(const int capacity);
     bool is_empty() const;
     bool is_full() const;
 
     VehicleData pop_front();
-    Status push_back(VehicleData v);
+    BufStatus push_back(VehicleData v);
 
     int get_front() const;
     int get_back() const;
