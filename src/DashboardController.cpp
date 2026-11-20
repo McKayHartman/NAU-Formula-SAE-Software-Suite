@@ -1,5 +1,5 @@
 #include "dashboard_UI.h"
-#include "../include/dashboard_Controller.h"
+#include "../include/DashboardController.h"
 #include <slint.h>
 
 DashboardUI::DashboardUI(VehicleDataRingBuffer &buffer) : buffer_(buffer) {}
@@ -27,11 +27,3 @@ void DashboardUI::stop() {
         slint::invoke_from_event_loop([] {slint::quit_event_loop;});
     }
 }
-
-
-
-
-//make slint timer to update every 50 milliseconds (20 Hz)
-
-
-
